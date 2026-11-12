@@ -40,7 +40,7 @@ return [
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_REDIRECT_URI', env('APP_URL') . '/auth/google/callback'),
         'guzzle' => [
-            'verify' => env('GOOGLE_CURL_VERIFY', file_exists('D:/laragon/etc/ssl/cacert.pem') ? 'D:/laragon/etc/ssl/cacert.pem' : true),
+            'verify' => env('GOOGLE_CURL_VERIFY') ?: (class_exists(\Composer\CaBundle\CaBundle::class) ? \Composer\CaBundle\CaBundle::getBundledCaBundlePath() : true),
         ],
     ],
 
