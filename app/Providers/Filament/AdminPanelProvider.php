@@ -11,6 +11,7 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -54,6 +55,14 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
+            ->renderHook(
+                PanelsRenderHook::AUTH_LOGIN_FORM_AFTER,
+                fn () => view('filament.hooks.google-login-button')
+            )
+            ->renderHook(
+                PanelsRenderHook::AUTH_REGISTER_FORM_AFTER,
+                fn () => view('filament.hooks.google-login-button')
+            )
             ->authMiddleware([
                 Authenticate::class,
             ]);
